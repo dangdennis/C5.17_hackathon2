@@ -1,3 +1,14 @@
-video, img{
-	max-width: 100%;
+.hidden{
+	display: none;
 }
+.vertical-alignment-help{
+    display: table;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+.vertical-align-center{
+    display: table-cell;
+    vertical-align: middle;
+}
+
