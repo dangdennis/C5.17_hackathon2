@@ -1,8 +1,11 @@
+
+
+var correctId = Math.floor((Math.random()*2)+1);
+var correctAnswers = ['cat','dog','bird'];
+var correctPicture = correctAnswers[correctId]
+var count = 0;
 function generateImages(){
 	//generates images
-	var correctId = Math.floor((Math.random()*2)+1);
-    var correctAnswers = ['cat','dog','bird'];
-    var correctPicture = correctAnswers[correctId]
 	var row = $('<div>').attr({
 		'class':'col-md-12 row'
 	});
@@ -14,9 +17,8 @@ function generateImages(){
 				'src' : 'https://source.unsplash.com/800x700/?' + correctPicture,
 				'class': 'img_sizing col-md-3',
 				'data-id': imageId,
-				'onclick': 'checkPhoto()'
 			});
-		row.append(img);
+		row.append(img);	
 		}
 		else{
 		//add IMGURL from AJAX call
@@ -25,7 +27,6 @@ function generateImages(){
 		var img = $('<img>').attr({
 			'src': 'https://source.unsplash.com/random/800x70'+imageId,
 			'class': 'img_sizing col-md-3',
-			'onclick': 'checkPhoto()',
 			'data-id': imageId
 		});
 		row.append(img);
@@ -35,15 +36,20 @@ function generateImages(){
 
 	// if(imageId == 5 && )
 	$('#container').append(row);
-	return correctId;
-
-
 }
 
-function checkPhoto(correctId){
-	var correctId = generateImages();
-	console.log(correctId);
+function checkPhoto(thePhoto){
+	var compareId = $(thePhoto).attr('data-id');
+	if(compareId == correctId){
+		
+		count++
+		blurMore(count);
+	}
+	else{
+		console.log('fuck you');
+	}
 }
+
 function blurMore(num){
     var windowCondition = 4;
     var score = 0;

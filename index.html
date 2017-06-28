@@ -20,9 +20,8 @@
 				$('#container').removeClass('hidden');
 				generateImages();
 			});
-			$('img').on('click',function(){
-				var imgId = $(this).attr('data-id');
-				checkPhoto(correctId);
+			$('div').on('click', '.img_sizing', function(){
+				checkPhoto(this);
 			});
 		});
 	</script>
