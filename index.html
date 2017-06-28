@@ -18,11 +18,6 @@
 			generateImage();
           // $('.take_picture').on('click', takeSnapShot());
 		})
-		$('.take_picture').on('click',function(){
-			$('<video>').attr('autoplay').appendTo('.video_display');
-			console.log('video tag created');
-			generateImage();
-		})
 	</script>
 </head>
 <body>
@@ -43,7 +38,7 @@
 	</div>
 	<!--Testing Image Display-->
 	<div class='video_display'>
-		<!-- <video autoplay></video> -->
+		<video autoplay></video>
 		<button class="glyphicon glyphicon-camera take_picture" type='btn btn-default'></button>
 	</div>
 </body>
