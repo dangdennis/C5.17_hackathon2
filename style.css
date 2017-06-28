@@ -13,9 +13,6 @@
 }
 .img_sizing{
 	margin: auto 0;
-	padding-right: 0px;
-	padding-left: 0px;
-
 }
 img{
 
@@ -33,7 +30,7 @@ img:hover{
 }
 
 
-@-webkit-keyframes body {
+/*@-webkit-keyframes body {
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
     100%{background-position:0% 50%}
@@ -54,4 +51,4 @@ body{
     -webkit-animation: body 8s ease infinite;
     -moz-animation: body 8s ease infinite;
     animation: body 8s ease infinite;
-}
+}*/

@@ -11,21 +11,6 @@
 	<link rel='stylesheet' type='text/css' href='style.css'/>
   	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$(window).on('load', function(){
-				$('#drunk_modal').modal('show');
-			});
-			$('#drunk_check').on('click', function(){
-				$('#container').removeClass('hidden');
-				generateImages();
-			});
-			$('img').on('click',function(){
-				var imgId = $(this).attr('data-id');
-				checkPhoto(correctId);
-			});
-		});
-	</script>
 <body>
 	<div id='drunk_modal' class='modal fade vertical-alignment-help' role='dialog'>
 		<div class='modal-dialog vertical-align-center'>
