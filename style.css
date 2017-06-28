@@ -28,9 +28,13 @@ img:hover{
     -moz-box-shadow: -5px 2px 47px 13px rgba(242,248,250,1);
     box-shadow: -5px 2px 47px 13px rgba(242,248,250,1);
 }
+<<<<<<< HEAD
 
 
 /*@-webkit-keyframes body {
+=======
+@-webkit-keyframes body {
+>>>>>>> d519f43074bf76f38c233ae6f1f75fe0e3a02a7c
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
     100%{background-position:0% 50%}
