@@ -11,4 +11,12 @@
     display: table-cell;
     vertical-align: middle;
 }
-
+.img_sizing{
+	margin: 0 auto;
+}
+h1{
+	text-align: center;
+}
+.center-me{
+	margin: 0 auto;
+}
