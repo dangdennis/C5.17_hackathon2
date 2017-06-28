@@ -9,8 +9,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="images.js"></script>
 	<link rel='stylesheet' type='text/css' href='style.css'/>
-  	<meta name="viewport" content="width=device-width, initial-scale=1">	
-	<script>
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+	<script type="text/javascript">
 		$(document).ready(function(){
 			$(window).on('load', function(){
 				$('#drunk_modal').modal('show');
@@ -19,11 +20,13 @@
 				$('#container').removeClass('hidden');
 				generateImages();
 			});
+			$('img').on('click',function(){
+				var imgId = $(this).attr('data-id');
+				checkPhoto(correctId);
+			});
 		});
 	</script>
-</head>
 <body>
-
 	<div id='drunk_modal' class='modal fade vertical-alignment-help' role='dialog'>
 		<div class='modal-dialog vertical-align-center'>
 			<div class='modal-content'>
@@ -39,7 +42,7 @@
 	</div>
 
 	<div id='container' class='hidden container'>
-		<h1>How Drunk are You?</h1>
+		<h1>How Drunk Are You?</h1>
 	</div>
 
 </body>
