@@ -7,6 +7,11 @@ var correctPicture = correctAnswers[correctId]
 var blurCount = 0;
 var drunkScore = 0;
 var imageCounter = 4;
+var global_result;
+
+/****************
+* Document Ready
+*****************/
 
 $(document).ready(function(){
 	$(window).on('load', function(){
@@ -19,7 +24,14 @@ $(document).ready(function(){
 	$('div').on('click', '.img_sizing', function(){
 		checkPhoto(this);
 	});
+	$('#youtubeButton').on('click',function() {
+		getYTVideos();
+	})
 });
+
+/*************************************
+* Appends Unsplash API photos to dom
+**************************************/
 
 function generateImages(){
 	//generates images
@@ -44,7 +56,7 @@ function generateImages(){
 					var src = response.urls.custom;
 					var img = $('<img>').attr({
 						'src' : ""+src,
-						'class': 'img_sizing col-xs-4 col-md-3',
+						'class': 'img_sizing col-xs-6 col-md-3',
 						'data-id': correctId
 					});
 					row.append(img);
@@ -69,7 +81,7 @@ function generateImages(){
 					var src = response.urls.custom;
 					var img = $('<img>').attr({
 					'src': ''+src,
-					'class': 'img_sizing col-xs-4 col-md-3',
+					'class': 'img_sizing col-xs-6 col-md-3',
 					'data-id': imageId
 					});
 					row.append(img);
@@ -90,16 +102,16 @@ function generateImages(){
 
 function checkPhoto(thePhoto){
 	var compareId = $(thePhoto).attr('data-id');
-	if (compareId == correctId){
-		blurCount+=3;
+	if (drunkScore === 3) {
+			hideImages();
+			$('#youtubeButton').css('display','block');
+			// showBars();
+	} else if (compareId == correctId){
+		blurCount+=2.5;
 		drunkScore++;
 		$("#refresh").remove();
 		reset();
 		generateImages();
-		if (drunkScore === 3) {
-			hideImages();
-			// showBars();
-		};
 	} else if (compareId !== correctId) {
 		drunkScore--;
 		console.log('GTFO, youre too drunk');
@@ -118,8 +130,7 @@ function blurMore(num){
 }
 
 function hideImages() {
-	$("div.row").css("display","none");
-	var display = $("<div>").addClass("")
+	$(".img_sizing").css("display","none");
 }
 
 /*******
@@ -128,6 +139,34 @@ function hideImages() {
 function reset() {
 	correctId = Math.floor((Math.random()*2)+1);
 	correctPicture = correctAnswers[correctId]
+}
+
+function getYTVideos() {
+    console.log('click initiated');
+    $.ajax({
+        key: 'AIzaSyAyUXMhECYPlriSTzeqEMIyjtE7JxV3cJo',
+        dataType: 'json',
+        url: 'http://s-apis.learningfuze.com/hackathon/youtube/search.php',
+        method: 'post',
+        data: {
+            maxResults: 3,
+            type: 'video',
+            q: 'Don\t Drink and Drive'
+        },
+        success: function(result) {
+            console.log('Youtube AJAX success', result);
+            global_result = result;
+            for(var i=0; i<global_result.video.length; i++){
+                var dog_video = 'https://www.youtube.com/embed/' + global_result.video[i].id;
+                var video = $('<iframe>').attr('src', dog_video);
+                $("#main").append(video);
+                var video_title = global_result.video[i].title;
+                var title = $('<h1>').attr('src', video_title);
+                $("#main").append(video_title);
+            }
+        }
+    });
+    console.log('End of click function');   		
 }
 
 /* Brian Kim's API pull from breweryDB
