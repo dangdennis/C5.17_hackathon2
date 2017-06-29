@@ -29,6 +29,9 @@ img:hover{
     box-shadow: -5px 2px 47px 13px rgba(242,248,250,1);
 }
 
+#youtubeButton {
+    display: none;
+}
 
 /*@-webkit-keyframes body {
 =======
