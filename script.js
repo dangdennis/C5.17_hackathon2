@@ -1,5 +1,3 @@
-var global_result;
-
 $(document).ready(function(){
     $('button').click(function(){
         console.log('click initiated');
