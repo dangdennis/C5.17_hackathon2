@@ -11,13 +11,11 @@ function Drunk() {
 	/*******************
 	* Declared variables
 	********************/ 
-	var correctId = Math.floor((Math.random()*2)+1);
-	var correctAnswers = ['cat','dog','bird'];
-	var correctPicture = correctAnswers[correctId]
+	var correctId = Math.floor((Math.random()*3)+1);
+	var correctAnswers = ['cat','dog','bird','headphones'];
+	var correctPicture = correctAnswers[correctId];
 	var blurCount = 0;
 	var drunkScore = 0;
-	var imageCounter = 4;
-
 
 	/****************
 	* Document Ready
@@ -56,7 +54,7 @@ function Drunk() {
 					dataType: 'json',
 					data: {
 						'client_id' : 'd349d0fb3f9aa57463894e9d910e3cb8bfac189eade38d25cab16c02c1b014bc',
-						'query' : 'cat',
+						'query' : correctAnswers[imageId],
 						'w' : 800,
 						'h' : 600
 					},
@@ -120,6 +118,7 @@ function Drunk() {
 			$("#refresh").remove();
 			self.reset();
 			self.generateImages();
+			blurMore(blurCount);
 		} else if (compareId !== correctId) {
 			drunkScore--;
 			console.log('GTFO, youre too drunk');
