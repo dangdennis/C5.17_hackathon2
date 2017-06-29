@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Drink. Drank. Drunk.</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-R-iimUeUMWoUApy66q_MqFfQioQhz9A&libraries=places"></script>
+    <meta name="viewport" content="initial-scale=1, user-scalable=no">
+    <link rel='stylesheet' type='text/css'/>
+    <script>
+//        function geoLocation(){
+//
+//        }
+        function getDataFromServer(){
+            $.ajax({
+                method: 'GET',
+                data: {
+                    url: "http://api.brewerydb.com/v2/locations?key=d767749e58ae17fbfafd5509629b2d36&region=CA"
+                },
+                url:'proxy.php',
+                success: function(result){
+                    var brewery = JSON.parse(result);
+                    for(var i = 0; i < brewery.data.length; i++){
+                        var row = $("<tr>");
+                        var name = $("<td>").text(brewery.data[i].brewery.name);
+                        var address = $("<td>").text(brewery.data[i].streetAddress);
+                        var phone = $("<td>").text(brewery.data[i].phone);
+                        $("tbody").append(row);
+                        $(row).append(name, address, phone);
+                        $('.location').text("CA");
+
+                    }
+                },
+                error: function(errr) {
+                    console.log("There was an error");
+                }
+            });
+        }
+        $(document).ready(function(){
+            getDataFromServer();
+        })
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="container page-header" style="text-align: center">
+            <h1>Nearest Bars
+                <small class="pull-right">Location: <span class="location"></span></small>
+            </h1>
+        </div>
+        <div class="bar-list col-md-9 col-xs-12" style="left: 160px">
+            <table class="bar-list table">
+                <thead>
+                <tr>
+                    <th>Bar Name</th>
+                    <th>Bar Address</th>
+                    <th>Bar Number</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
