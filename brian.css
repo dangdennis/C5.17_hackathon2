@@ -11,7 +11,8 @@ html, body {
 .container .page-header{
     text-align: center;
 }
-.bar-list .col-md-9 .col-xs-12 {
+
+.bar-list .col-md-12 .col-xs-12 {
     left: 160px
 }
 #more {

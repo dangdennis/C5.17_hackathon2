@@ -56,7 +56,6 @@ function createMarkers(places) {
             var row = $("<tr>");
             var name = $("<td>").text(place.name);
             var address = $("<td>").text(place.vicinity);
-        debugger;
             $("tbody").append(row);
             $(row).append(name, address);
 
