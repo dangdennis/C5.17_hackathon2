@@ -40,8 +40,9 @@ function generateImages(){
 
 function checkPhoto(thePhoto){
 	var compareId = $(thePhoto).attr('data-id');
-	if(compareId == correctId){
-		
+	if (count >= 3) {
+		changeToYoutube();
+	} else if(compareId == correctId){
 		count++
 		blurMore(count);
 	}
