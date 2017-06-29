@@ -14,6 +14,9 @@
 .img_sizing{
 	margin: auto 0;
 }
+.img_sizing:hover{
+    opacity: 0.25;
+}
 img{
 
 }
@@ -28,6 +31,23 @@ img:hover{
     -moz-box-shadow: -5px 2px 47px 13px rgba(242,248,250,1);
     box-shadow: -5px 2px 47px 13px rgba(242,248,250,1);
 }
+.wrapper_size{
+    display: inline-block;
+    position: relative;
+}
+.img_description{
+    display: inline-block;
+    position: absolute;
+    visibility: hidden;
+    font-weight: bold;
+    background-color: #808080;
+    color: white;
+    text-align: center;
+}
+.wrapper_size:hover .img_description{
+    visibility: visible;
+}
+
 
 
 /*@-webkit-keyframes body {

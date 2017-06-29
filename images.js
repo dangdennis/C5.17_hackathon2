@@ -1,173 +1,209 @@
-/**
-* Global variables
-*/ 
-var correctId = Math.floor((Math.random()*2)+1);
-var correctAnswers = ['cat','dog','bird'];
-var correctPicture = correctAnswers[correctId]
-var blurCount = 0;
-var drunkScore = 0;
-var imageCounter = 4;
-var global_result;
+var dontDrink = new Drunk();
 
-/****************
-* Document Ready
-*****************/
+function Drunk() {
 
-$(document).ready(function(){
-	$(window).on('load', function(){
-		$('#drunk_modal').modal('show');
-	});
-	$('#drunk_check').on('click', function(){
-		$('#container').removeClass('hidden');
-		generateImages();
-	});
-	$('div').on('click', '.img_sizing', function(){
-		checkPhoto(this);
-	});
-	$('#youtubeButton').on('click',function() {
-		getYTVideos();
-	})
-});
+	var self = this;
 
-/*************************************
-* Appends Unsplash API photos to dom
-**************************************/
+	self.init = function() {
+		self.eventHandlers();
+	}
 
-function generateImages(){
-	//generates images
-	var row = $('<div>').attr({
-		'class':'col-xs-12 row',
-		'id': 'refresh'
-	});
-	for(var imageId = 0; imageId < 4; imageId++){
-		if(imageId == correctId){
-			$.ajax({
-				method: 'GET',
-				dataType: 'json',
-				data: {
-					'client_id' : 'd349d0fb3f9aa57463894e9d910e3cb8bfac189eade38d25cab16c02c1b014bc',
-					'query' : 'cat',
-					'w' : 800,
-					'h' : 600
-				},
-				url: 'https://api.unsplash.com/photos/random/?',
-				success: function(response) {
-					console.log(response);
-					var src = response.urls.custom;
-					var img = $('<img>').attr({
-						'src' : ""+src,
-						'class': 'img_sizing col-xs-6 col-md-3',
-						'data-id': correctId
-					});
-					row.append(img);
-					console.log('answer ajax called for imageId');
-					blurMore(blurCount);
-				},
-				error: function(err) {
-					console.log('imageId not working',err);
-				}
-			})
-		} else {
-			$.ajax({
-				method: 'GET',
-				dataType: 'json',
-				data: {
-					'client_id' : 'd349d0fb3f9aa57463894e9d910e3cb8bfac189eade38d25cab16c02c1b014bc',
-					'w' : 800,
-					'h' : 600
-				},
-				url: 'https://api.unsplash.com/photos/random/',
-				success: function(response) {
-					var src = response.urls.custom;
-					var img = $('<img>').attr({
-					'src': ''+src,
-					'class': 'img_sizing col-xs-6 col-md-3',
-					'data-id': imageId
-					});
-					row.append(img);
-					blurMore(blurCount);
-				},
-				error: function(err) {
-					console.log('non-randomId image error',err);
-				}
-			})	
+	/*******************
+	* Declared variables
+	********************/ 
+	var correctId = Math.floor((Math.random()*3)+1);
+	var correctAnswers = ['cat','dog','bird','headphones'];
+	var correctPicture = correctAnswers[correctId];
+	var blurCount = 0;
+	var drunkScore = 0;
+
+	/****************
+	* Document Ready
+	*****************/
+	self.eventHandlers = function() {
+		$(document).ready(function(){
+			$(window).on('load', function(){
+				$('#drunk_modal').modal('show');
+			});
+			$('#drunk_check').on('click', function(){
+				$('#container').removeClass('hidden');
+				self.generateImages();
+			});
+			$('div').on('click', '.img_sizing', function(){
+				self.checkPhoto(this);
+			});
+		});		
+	};
+
+	/*************************************
+	* Appends Unsplash API photos to dom
+	**************************************/
+	self.generateImages = function(){
+		//generates images
+		for(var imageId = 0; imageId < 4; imageId++){
+			if(imageId == correctId){
+				$.ajax({
+					method: 'GET',
+					dataType: 'json',
+					data: {
+						'client_id' : 'd349d0fb3f9aa57463894e9d910e3cb8bfac189eade38d25cab16c02c1b014bc',
+						'query' : correctAnswers[imageId],
+						'w' : 800,
+						'h' : 600
+					},
+					url: 'https://api.unsplash.com/photos/random/?',
+					success: function(response) {
+						console.log(response);
+						var src = response.urls.custom;
+						var wrapper = $("<div>", {
+							'class': 'wrapper_size col-md-3'
+						});
+						var img = $('<img>',{
+							'class': 'img_sizing col-md-12',
+							'src' : ""+src,
+							'data-id': correctId
+						});
+						var credit = $('<p>',{
+							'class' : 'img_description'
+							}).text(`<${response.user.first_name} ${response.user.last_name}/Unsplash>`);
+						wrapper.append(credit);
+						wrapper.append(img);
+						$('.row').append(wrapper);
+						console.log('answer ajax called for imageId');
+						self.blurMore(blurCount);
+					},
+					error: function(err) {
+						console.log('imageId not working',err);
+					}
+				})
+			} else {
+				$.ajax({
+					method: 'GET',
+					dataType: 'json',
+					data: {
+						'client_id' : 'd349d0fb3f9aa57463894e9d910e3cb8bfac189eade38d25cab16c02c1b014bc',
+						'w' : 800,
+						'h' : 600
+					},
+					url: 'https://api.unsplash.com/photos/random/',
+					success: function(response) {
+						var src = response.urls.custom;
+						var wrapper = $("<div>",{
+							'class' : 'wrapper_size col-md-3'
+						});
+						var img = $('<img>').attr({
+						'src': ''+src,
+						'class': 'img_sizing col-md-12',
+						'data-id': imageId
+						});
+						if(response.user.last_name === null) {
+							var credit = $('<p>',{
+							'class' : 'img_description'
+							}).text(`<${response.user.first_name}/Unsplash>`);
+						}
+						else{
+							 var credit = $('<div>',{
+							'class' : 'img_description'
+							}).text(`<${response.user.first_name} ${response.user.last_name}/Unsplash>`);
+						}
+						wrapper.append(credit);
+						wrapper.append(img);
+						$('.row').append(wrapper);
+						self.blurMore(blurCount);
+					},
+					error: function(err) {
+						console.log('non-randomId image error',err);
+					}
+				})	
+			}
+		}
+	};
+
+	/**************
+	* Checks photo
+	***************/
+
+	self.checkPhoto = function(thePhoto){
+		var compareId = $(thePhoto).attr('data-id');
+		if (drunkScore === 3) {
+				self.hideImages();
+		} else if (compareId == correctId){
+			blurCount+=2.5;
+			drunkScore++;
+			$("#refresh").remove();
+			self.reset();
+			self.generateImages();
+			blurMore(blurCount);
+		} else if (compareId !== correctId) {
+			drunkScore--;
+			console.log('GTFO, youre too drunk');
+			if (drunkScore < 0){
+				$("#refresh").css('display','none');
+				self.getYTVideos();
+			}
 		}
 	}
-	$('#container').append(row);
-}
 
-/**************
-* Checks photo
-***************/
+	/******
+	* Blur 
+	*******/
 
-function checkPhoto(thePhoto){
-	var compareId = $(thePhoto).attr('data-id');
-	if (drunkScore === 3) {
-			hideImages();
-			$('#youtubeButton').css('display','block');
-			// showBars();
-	} else if (compareId == correctId){
-		blurCount+=2.5;
-		drunkScore++;
-		$("#refresh").remove();
-		reset();
-		generateImages();
-	} else if (compareId !== correctId) {
-		drunkScore--;
-		console.log('GTFO, youre too drunk');
-		// if (drunkScore < 0){
-			// $("#refresh").remove();
+	self.blurMore = function(num){
+	    var blurScale = num;
+	    $(".img_sizing").css("filter","blur("+blurScale+"px)");
 	}
+
+	self.hideImages = function() {
+		$("#refresh").css("display","none");
+		}
+
+	/*******
+	* Reset 
+	*******/
+	self.reset = function() {
+		correctId = Math.floor((Math.random()*2)+1);
+		correctPicture = correctAnswers[correctId];
+	}
+
+	self.getYTVideos = function() {
+	    console.log('click initiated');
+	    $.ajax({
+	        key: 'AIzaSyAyUXMhECYPlriSTzeqEMIyjtE7JxV3cJo',
+	        dataType: 'json',
+	        url: 'http://s-apis.learningfuze.com/hackathon/youtube/search.php',
+	        method: 'post',
+	        data: {
+	            maxResults: 1,
+	            type: 'video',
+	            q: 'Drink and Drive'
+	        },
+	        success: function(result) {
+	            console.log('Youtube AJAX success', result);
+	            for(var i=0; i<result.video.length; i++){
+	                var video_url = 'https://www.youtube.com/embed/' + result.video[i].id + "?autoplay=1";
+	                var video = $('<iframe>').attr({
+	                	'src': video_url,
+	                	'class': 'col-md-4'
+	                	});
+	                $("#main").append(video);
+	                var video_title = result.video[i].title;
+	                var title = $('<h1>').attr({
+	                	'src' : video_title,
+	                	'class': 'col-md-4'
+	                	});
+	                $("#main").append(video_title);
+	            }
+	        },
+	        error: function(err) {
+	        	console.log('youtube ajax error', err);
+	        }
+	    });
+	    console.log('End of click function');   		
+	}	
+
+	self.init();
 }
 
-/******
-* Blur 
-*******/
-
-function blurMore(num){
-    var blurScale = num;
-    $(".img_sizing").css("filter","blur("+blurScale+"px)");
-}
-
-function hideImages() {
-	$(".img_sizing").css("display","none");
-}
-
-/*******
-* Reset 
-*******/
-function reset() {
-	correctId = Math.floor((Math.random()*2)+1);
-	correctPicture = correctAnswers[correctId]
-}
-
-function getYTVideos() {
-    console.log('click initiated');
-    $.ajax({
-        key: 'AIzaSyAyUXMhECYPlriSTzeqEMIyjtE7JxV3cJo',
-        dataType: 'json',
-        url: 'http://s-apis.learningfuze.com/hackathon/youtube/search.php',
-        method: 'post',
-        data: {
-            maxResults: 3,
-            type: 'video',
-            q: 'Don\t Drink and Drive'
-        },
-        success: function(result) {
-            console.log('Youtube AJAX success', result);
-            global_result = result;
-            for(var i=0; i<global_result.video.length; i++){
-                var dog_video = 'https://www.youtube.com/embed/' + global_result.video[i].id;
-                var video = $('<iframe>').attr('src', dog_video);
-                $("#main").append(video);
-                var video_title = global_result.video[i].title;
-                var title = $('<h1>').attr('src', video_title);
-                $("#main").append(video_title);
-            }
-        }
-    });
-    console.log('End of click function');   		
-}
 
 /* Brian Kim's API pull from breweryDB
 function getDataFromServerFullerton(){
