@@ -1,0 +1,20 @@
+#map {
+    height: 100%;
+    width:100%;
+    overflow:inherit;
+
+}
+html, body {
+    height: 400px;
+    width: 100%;
+}
+.container .page-header{
+    text-align: center;
+}
+.bar-list .col-md-9 .col-xs-12 {
+    left: 160px
+}
+#more {
+    width: 100%;
+    margin: 5px 0 0 0;
+}
