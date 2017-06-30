@@ -27,8 +27,14 @@ function Drunk() {
 				$('#drunk_modal').modal('show');
 			});
 			$('#drunk_check').on('click', function(){
-				$('#container').removeClass('hidden');
-				self.generateImages();
+				$('#loading_anim').removeClass('hidden');
+				//Doesn't generate pictures for 3 seconds
+				setTimeout(function(){
+					$('#loading_anim').addClass('hidden');
+					$('#container').removeClass('hidden');
+					self.generateImages();
+				}, 3000);
+
 			});
 		});		
 	};
@@ -51,7 +57,7 @@ function Drunk() {
 					method: 'GET',
 					dataType: 'json',
 					data: {
-						'client_id' : 'd349d0fb3f9aa57463894e9d910e3cb8bfac189eade38d25cab16c02c1b014bc',
+						'client_id' : '63e09a26ab40332e112ecee256b44d00d17393ba22688913825458af2923a860',
 						'query' : correctAnswers[imageId],
 						'w' : 800,
 						'h' : 600
@@ -90,7 +96,7 @@ function Drunk() {
 					method: 'GET',
 					dataType: 'json',
 					data: {
-						'client_id' : 'd349d0fb3f9aa57463894e9d910e3cb8bfac189eade38d25cab16c02c1b014bc',
+						'client_id' : '63e09a26ab40332e112ecee256b44d00d17393ba22688913825458af2923a860',
 						'w' : 800,
 						'h' : 600
 					},
@@ -154,9 +160,7 @@ function Drunk() {
 		} else if (compareId !== correctId) {
 			drunkScore--;
 			blurCount-=2;
-			debugger;
 			self.blurMore(blurCount);
-			console.log('GTFO, youre too drunk');
 			if (drunkScore < 0){
 				$("#refresh").css('display','none');
 				self.getYTVideos();
@@ -189,7 +193,6 @@ function Drunk() {
 	* Youtube Videos 
 	****************/
 	self.getYTVideos = function() {
-	    console.log('click initiated');
 	    $.ajax({
 	        key: 'AIzaSyAyUXMhECYPlriSTzeqEMIyjtE7JxV3cJo',
 	        dataType: 'json',
@@ -206,13 +209,14 @@ function Drunk() {
 	                var video_url = 'https://www.youtube.com/embed/' + result.video[i].id + "?autoplay=1";
 	                var video = $('<iframe>').attr({
 	                	'src': video_url,
-	                	'class': 'col-md-4',
+	                	'class': 'col-md-12',
 	                	allowfullscreen: '',
 	                	});
 	                $("#container").append(video);
 	                var video_title = result.video[i].title;
-	                var title = $('<h1>',{'class' : 'col-md-4'}).text(video_title);
+	                var title = $('<h1>',{'class' : 'col-md-12'}).text(video_title);
 	                $("#container").append(title);
+	                $('#container h3').addClass('hidden');
 	            }
 	        },
 	        error: function(err) {
