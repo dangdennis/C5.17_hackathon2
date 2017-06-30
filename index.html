@@ -7,7 +7,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-R-iimUeUMWoUApy66q_MqFfQioQhz9A&libraries=places&callback=initMap">
+    </script>
+    <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-R-iimUeUMWoUApy66q_MqFfQioQhz9A&libraries=places"></script>-->
+    <script type="text/javascript" src='brian_js.js'></script>
     <script src="images.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<link rel='stylesheet' type='text/css' href='style.css'/>
   	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -21,16 +27,41 @@
 				<div class='modal-body col-md-12'>
 					<p>A website designed to determine whether you are possibly tipsy. Select a photo that matches the description given to you by the ever beautiful photos of unSplashed!</p>
 				</div>
+				
 				<button type='button' class='btn btn-default' data-dismiss='modal' id='drunk_check' value='load_page'>Click Me!</button>
 			</div>
 		</div>
 	</div>
 
-	<div id='container' class='hidden container'>
 
-		<h1>How Drunk Are You?</h1>
+	<div id='container' class='hidden container'>
+		<h1 id='title'>How Drunk Are You?</h1>
 		<div class='row col-xs-12' id='refresh'></div>
+		<div>
+			<h3>Select the <span class='correctPicture'></span></h3>
+		</div>
 	</div>
+	<div id="map" class='hidden'></div>
+	<div id="googleMapContainer" class="hidden">
+	        <div class="container page-header">
+	            <h1>Nearest Bars
+	                <small class="pull-right"></small>
+	            </h1>
+	        </div>
+	        <div class="bar-list col-md-9 col-xs-12">
+	            <table class="bar-list table">
+	                <thead>
+	                <tr>
+	                    <th>Bar Name</th>
+	                    <th>Bar Address</th>
+	                </tr>
+	                </thead>
+	                <tbody>
+	                </tbody>
+	            </table>
+	        </div>
+	        <button id="more">More results</button>
+	    </div>
 
 </body>
 </html>

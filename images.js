@@ -16,6 +16,7 @@ function Drunk() {
 	var correctPicture = correctAnswers[correctId];
 	var blurCount = 0;
 	var drunkScore = 0;
+	var map;
 
 	/****************
 	* Document Ready
@@ -29,14 +30,18 @@ function Drunk() {
 				$('#container').removeClass('hidden');
 				self.generateImages();
 			});
-			$('div').on('click', '.img_sizing', function(){
-				self.checkPhoto(this);
-			});
 		});		
 	};
 
 	/*************************************
 	* Appends Unsplash API photos to dom
+	keys = [
+	dennis: 'd349d0fb3f9aa57463894e9d910e3cb8bfac189eade38d25cab16c02c1b014bc',
+	insoo: 'eb63abf97e8fe63d45015fb63221b0206196e2667e3c81c5b89d8316b98b89d3',
+	brian: '06a9e2bde3eea55d75a73907d11f3ab2e142536b832a5879e6d12f318a469c07',
+	howard: '63e09a26ab40332e112ecee256b44d00d17393ba22688913825458af2923a860'
+
+	]
 	**************************************/
 	self.generateImages = function(){
 		//generates images
@@ -56,7 +61,7 @@ function Drunk() {
 						console.log(response);
 						var src = response.urls.custom;
 						var wrapper = $("<div>", {
-							'class': 'wrapper_size col-md-3'
+							'class': 'wrapper_size col-md-6'
 						});
 						var img = $('<img>',{
 							'class': 'img_sizing col-md-12',
@@ -71,6 +76,10 @@ function Drunk() {
 						$('.row').append(wrapper);
 						console.log('answer ajax called for imageId');
 						self.blurMore(blurCount);
+						wrapper.on('click', '.img_sizing', function(){
+							self.checkPhoto(this);
+						});
+						$('.correctPicture').text(correctPicture);
 					},
 					error: function(err) {
 						console.log('imageId not working',err);
@@ -89,7 +98,7 @@ function Drunk() {
 					success: function(response) {
 						var src = response.urls.custom;
 						var wrapper = $("<div>",{
-							'class' : 'wrapper_size col-md-3'
+							'class' : 'wrapper_size col-md-6'
 						});
 						var img = $('<img>').attr({
 						'src': ''+src,
@@ -110,6 +119,9 @@ function Drunk() {
 						wrapper.append(img);
 						$('.row').append(wrapper);
 						self.blurMore(blurCount);
+						wrapper.on('click', '.img_sizing', function(){
+							self.checkPhoto(this);
+						});
 					},
 					error: function(err) {
 						console.log('non-randomId image error',err);
@@ -125,17 +137,25 @@ function Drunk() {
 
 	self.checkPhoto = function(thePhoto){
 		var compareId = $(thePhoto).attr('data-id');
-		if (drunkScore === 3) {
-				self.hideImages();
-		} else if (compareId == correctId){
-			blurCount+=2.5;
+		if (compareId == correctId){
+			blurCount+=2;
 			drunkScore++;
-			$("#refresh").remove();
+			$("#refresh").empty();
+			if (drunkScore === 3) {
+				$('#container h3').addClass('hidden');
+				$('#googleMapContainer').removeClass('hidden');
+				$('#map').removeClass('hidden');
+				getLocation();
+				return;
+			}
 			self.reset();
 			self.generateImages();
-			blurMore(blurCount);
+			self.blurMore(blurCount);
 		} else if (compareId !== correctId) {
 			drunkScore--;
+			blurCount-=2;
+			debugger;
+			self.blurMore(blurCount);
 			console.log('GTFO, youre too drunk');
 			if (drunkScore < 0){
 				$("#refresh").css('display','none');
@@ -155,7 +175,7 @@ function Drunk() {
 
 	self.hideImages = function() {
 		$("#refresh").css("display","none");
-		}
+	}
 
 	/*******
 	* Reset 
@@ -165,6 +185,9 @@ function Drunk() {
 		correctPicture = correctAnswers[correctId];
 	}
 
+	/***************
+	* Youtube Videos 
+	****************/
 	self.getYTVideos = function() {
 	    console.log('click initiated');
 	    $.ajax({
@@ -175,7 +198,7 @@ function Drunk() {
 	        data: {
 	            maxResults: 1,
 	            type: 'video',
-	            q: 'Drink and Drive'
+	            q: 'Stop drinking and driving because'
 	        },
 	        success: function(result) {
 	            console.log('Youtube AJAX success', result);
@@ -183,15 +206,13 @@ function Drunk() {
 	                var video_url = 'https://www.youtube.com/embed/' + result.video[i].id + "?autoplay=1";
 	                var video = $('<iframe>').attr({
 	                	'src': video_url,
-	                	'class': 'col-md-4'
+	                	'class': 'col-md-4',
+	                	allowfullscreen: '',
 	                	});
-	                $("#main").append(video);
+	                $("#container").append(video);
 	                var video_title = result.video[i].title;
-	                var title = $('<h1>').attr({
-	                	'src' : video_title,
-	                	'class': 'col-md-4'
-	                	});
-	                $("#main").append(video_title);
+	                var title = $('<h1>',{'class' : 'col-md-4'}).text(video_title);
+	                $("#container").append(title);
 	            }
 	        },
 	        error: function(err) {
@@ -199,63 +220,79 @@ function Drunk() {
 	        }
 	    });
 	    console.log('End of click function');   		
-	}	
+	};	
+
+	/***************
+	* Initiate Map
+	****************/
+	// self.initMap = function(position) {
+	//     var california = {lat: position.coords.latitude, lng: position.coords.longitude};
+
+	//     map = new google.maps.Map(document.getElementById('map'), {
+	//         center: california,
+	//         zoom: 17
+	//     });
+
+	//     var service = new google.maps.places.PlacesService(map);
+	//     service.nearbySearch({
+	//         location: california,
+	//         radius: 10000,
+	//         type: ['bar']
+	//     }, self.processResults);
+	// };
+
+	// self.processResults = function(results, status, pagination) {
+	//     if (status !== google.maps.places.PlacesServiceStatus.OK) {
+	//         return;
+	//     } else {
+	//         self.createMarkers(results);
+
+	//         if (pagination.hasNextPage) {
+	//             var moreButton = document.getElementById('more');
+
+	//             moreButton.disabled = false;
+
+	//             moreButton.addEventListener('click', function() {
+	//                 moreButton.disabled = true;
+	//                 pagination.nextPage();
+	//             });
+	//         }
+	//     }
+	// }
+
+	// self.createMarkers = function(places) {
+	//     var bounds = new google.maps.LatLngBounds();
+
+	//     for (var i = 0, place; place = places[i]; i++) {
+	//         var image = {
+	//             url: place.icon,
+	//             size: new google.maps.Size(71, 71),
+	//             origin: new google.maps.Point(0, 0),
+	//             anchor: new google.maps.Point(17, 34),
+	//             scaledSize: new google.maps.Size(25, 25)
+	//         };
+
+	//         var marker = new google.maps.Marker({
+	//             map: map,
+	//             icon: image,
+	//             title: place.name,
+	//             position: place.geometry.location
+	//         });
+ //            var row = $("<tr>");
+ //            var name = $("<td>").text(place.name);
+ //            var address = $("<td>").text(place.vicinity);
+ //            $("tbody").append(row);
+ //            $(row).append(name, address);
+
+	//         bounds.extend(place.geometry.location);
+	//     }
+	//     map.fitBounds(bounds);
+	// }
+
+
+	// self.getLocation = function(){
+	//     navigator.geolocation.getCurrentPosition(self.initMap);
+	// }
 
 	self.init();
 }
-
-
-/* Brian Kim's API pull from breweryDB
-function getDataFromServerFullerton(){
-            $.ajax({
-                method: 'GET',
-                data: {
-                    url: "http://api.brewerydb.com/v2/locations?key=d767749e58ae17fbfafd5509629b2d36&region=CA"
-                },
-                url:'proxy.php',
-                success: function(result){
-                    var brewery = JSON.parse(result);
-                    for(var i = 0; i < brewery.data.length; i++){
-                        var row = $("<tr>");
-                        var name = $("<td>").text(brewery.data[i].brewery.name);
-                        var address = $("<td>").text(brewery.data[i].streetAddress);
-                        var phone = $("<td>").text(brewery.data[i].phone);
-                        $("tbody").append(row);
-                        $(row).append(name, address, phone);
-                        $('.location').text("CA");
-                    }
-                },
-                error: function(errr) {
-                    console.log("There was an error");
-                }
-            });
-        }
-        $(document).ready(function(){
-            getDataFromServerFullerton();
-        })
-*/
-/*
-<body>
-    <div class="container">
-        <div class="container page-header" style="text-align: center">
-            <h1>Nearest Bars
-                <small class="pull-right">Location: <span class="location"></span></small>
-            </h1>
-        </div>
-        <div class="bar-list col-md-9 col-xs-12" style="left: 182px">
-            <table class="bar-list table">
-                <thead>
-                <tr>
-                    <th>Bar Name</th>
-                    <th>Bar Address</th>
-                    <th>Bar Number</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </table>
-        </div>
-    </div>
-</body>
-*/

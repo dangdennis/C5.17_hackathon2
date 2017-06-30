@@ -1,40 +1,30 @@
+body {
+    background: url('beer.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Lato',sans-serif;
+}
+
+h1, h3{
+    text-align: center;
+}
+
+#title, h3, h3.correctPicture {
+    color: #dfcfb5;
+}
+
+
 .hidden{
 	display: none;
 }
-.vertical-alignment-help{
-    display: table;
-    height: 100%;
-    width: 100%;
-    text-align: center;
-}
-.vertical-align-center{
-    display: table-cell;
-    vertical-align: middle;
-}
+
 .img_sizing{
 	margin: auto 0;
 }
+
 .img_sizing:hover{
     opacity: 0.25;
 }
-img{
 
-}
-h1{
-	text-align: center;
-}
-.center-me{
-	margin: 0 auto;
-}
-img:hover{
-    -webkit-box-shadow: -5px 2px 47px 13px rgba(242,248,250,1);
-    -moz-box-shadow: -5px 2px 47px 13px rgba(242,248,250,1);
-    box-shadow: -5px 2px 47px 13px rgba(242,248,250,1);
-}
-.wrapper_size{
-    display: inline-block;
-    position: relative;
-}
 .img_description{
     display: inline-block;
     position: absolute;
@@ -44,8 +34,56 @@ img:hover{
     color: white;
     text-align: center;
 }
+
+img:hover{
+    -webkit-box-shadow: -5px 2px 47px 13px rgba(242,248,250,1);
+    -moz-box-shadow: -5px 2px 47px 13px rgba(242,248,250,1);
+    box-shadow: -5px 2px 47px 13px rgba(242,248,250,1);
+}
+
+/*.vertical-alignment-help{
+    display: table;
+    height: 100%;
+    width: 50%;
+    left: 100px;
+    text-align: center;
+}
+
+.vertical-align-center{
+    display: table-cell;
+    vertical-align: middle;
+}*/
+
+.wrapper_size{
+    display: inline-block;
+    position: relative;
+}
+
 .wrapper_size:hover .img_description{
     visibility: visible;
+}
+
+/* BreweryDB CSS */
+
+#map {
+    height: 400px;
+    width: 100%;
+    overflow:inherit;
+}
+
+.container .page-header{
+    text-align: center;
+}
+.bar-list .col-md-9 .col-xs-12 {
+    left: 160px
+}
+#more {
+    width: 100%;
+    margin: 5px 0 0 0;
+}
+#googleMapContainer{
+    background-color: white;
+    opacity: 0.80;
 }
 
 
