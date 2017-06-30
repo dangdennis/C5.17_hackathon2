@@ -1,0 +1,107 @@
+body {
+    background: url('beer.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Lato',sans-serif;
+}
+
+#drunk_check {
+    margin-bottom: 2%;
+    background-color: #fffdfd;
+    border-color: rgba(212, 191, 191, 0.5);
+}
+
+#drunk_check:hover {
+    border-color: rgba(0,0,0,.5);
+}
+
+.modal-content.custom {
+    opacity: 0.85;
+    box-shadow: 0 5px 15px rgba(117, 76, 76, 0.5);
+    background-color: #fffdfd;
+    margin-top: 30%;
+}
+
+h1, h3{
+    text-align: center;
+}
+
+#title, h3, h3.correctPicture {
+    color: #fffbf4;
+}
+
+
+.hidden{
+	display: none;
+}
+
+img.img_sizing{
+    box-sizing: border-box;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    border-radius: 7px;
+    margin: 1% auto;
+}
+
+.img_sizing:hover{
+    opacity: 0.90;
+}
+
+.img_description{
+    display: inline-block;
+    position: absolute;
+    visibility: hidden;
+    font-weight: bold;
+    background-color: rgba(255,255,255,.15);
+    color: #fffdfd;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+img:hover{
+    box-shadow: 0px 0px 8px 2px rgb(234, 222, 222);
+}
+
+.wrapper_size{
+    display: inline-block;
+    position: relative;
+}
+
+.wrapper_size:hover .img_description{
+    visibility: visible;
+}
+
+/* BreweryDB CSS */
+.container .page-header{
+    text-align: center;
+}
+
+.bar-list .col-md-9 .col-xs-12 {
+    left: 160px
+}
+
+#googleMapContainer{
+    background-color: white;
+    opacity: 0.9;
+    width: 90%;
+    border-radius: 5px;
+    margin: 0 auto;  opacity: 0.80;
+}
+
+#map {
+    height: 400px;
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+#more {
+    width: 100%;
+    margin: 5px 0 0 0;
+}
+
+.table {
+    width: 100%;
+    margin: 20px auto;
+}
+
+/*adding Animation CSS*/

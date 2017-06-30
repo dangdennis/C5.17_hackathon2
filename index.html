@@ -1,17 +1,61 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="script.js"></script>
-        <title>Document</title>
-    </head>
-    <body>
-        <button type="button">Load it</button>
-        <div id="main"></div>
-        <div id="title"></div>
-    </body>
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset="UTF-8">
+	<title>Drink. Drank. Drunk.</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-R-iimUeUMWoUApy66q_MqFfQioQhz9A&libraries=places&callback=initMap">
+    </script>
+    <script type="text/javascript" src='map.js'></script>
+    <script src="images.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<link rel='stylesheet' type='text/css' href='style.css'/>
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div id='drunk_modal' class='modal fade vertical-alignment-help' role='dialog'>
+		<div class='modal-dialog vertical-align-center'>
+			<div class='modal-content custom'>
+				<div class='modal-header'>
+					<h1>Drink. Drank. Drunk.</h1>
+				</div>
+				<div class='modal-body col-md-12'>
+					<p>
+						Are you too tipsy? Select the photo that matches the description from the ever beautiful collection on Unsplash!
+					</p>
+				</div>
+				<button type='button' class='btn btn-default center-block' data-dismiss='modal' id='drunk_check' value='load_page'>Test Yourself</button>
+			</div>
+		</div>
+	</div>
+	<div id='container' class='hidden container'>
+		<h1 id='title'>How Drunk Are You?</h1>
+		<h3 class='status'>See the <span class='correctPicture'></span> ?</h3>
+		<div class='row col-xs-12' id='refresh'></div>
+	</div>
+	<div id="map" class='hidden'></div>
+	<div id="googleMapContainer" class="hidden">
+	        <div class="container page-header">
+	            <h1>Nearest Bars
+	                <small class="pull-right"></small>
+	            </h1>
+	        </div>
+	        <div class="bar-list col-xs-12">
+	            <table class="bar-list table">
+	                <thead>
+		                <tr class='row'>
+		                    <th class="col-xs-6">Bar Name</th>
+		                    <th class="col-xs-6">Bar Address</th>
+		                </tr>
+	                </thead>
+	                <tbody></tbody>
+	            </table>
+	        </div>
+	        <button id="more">More results</button>
+	    </div>
+</body>
 </html>
