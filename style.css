@@ -86,30 +86,4 @@ img:hover{
     opacity: 0.80;
 }
 
-
-
-/*@-webkit-keyframes body {
-=======
-@-webkit-keyframes body {
->>>>>>> d519f43074bf76f38c233ae6f1f75fe0e3a02a7c
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
-@-moz-keyframes body {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
-@keyframes body { 
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
-body{
-	background: linear-gradient(266deg, #0bedb2, #58de8a, #4dd65c);
-	background-size: 600% 600%;
-    -webkit-animation: body 8s ease infinite;
-    -moz-animation: body 8s ease infinite;
-    animation: body 8s ease infinite;
-}*/
+/*adding Animation CSS*/
