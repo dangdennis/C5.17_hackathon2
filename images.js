@@ -27,8 +27,14 @@ function Drunk() {
 				$('#drunk_modal').modal('show');
 			});
 			$('#drunk_check').on('click', function(){
-				$('#container').removeClass('hidden');
-				self.generateImages();
+				$('#loading_anim').removeClass('hidden');
+				//Doesn't generate pictures for 3 seconds
+				setTimeout(function(){
+					$('#loading_anim').addClass('hidden');
+					$('#container').removeClass('hidden');
+					self.generateImages();
+				}, 3000);
+
 			});
 		});		
 	};
@@ -157,9 +163,7 @@ function Drunk() {
 		} else if (compareId !== correctId) {
 			drunkScore--;
 			blurCount-=2;
-			debugger;
 			self.blurMore(blurCount);
-			console.log('GTFO, youre too drunk');
 			if (drunkScore < 0){
 				$("#refresh").css('display','none');
 				self.getYTVideos();
@@ -192,7 +196,6 @@ function Drunk() {
 	* Youtube Videos 
 	****************/
 	self.getYTVideos = function() {
-	    console.log('click initiated');
 	    $.ajax({
 	        key: 'AIzaSyAyUXMhECYPlriSTzeqEMIyjtE7JxV3cJo',
 	        dataType: 'json',
@@ -209,13 +212,14 @@ function Drunk() {
 	                var video_url = 'https://www.youtube.com/embed/' + result.video[i].id + "?autoplay=1";
 	                var video = $('<iframe>').attr({
 	                	'src': video_url,
-	                	'class': 'col-md-4',
+	                	'class': 'col-md-12',
 	                	allowfullscreen: '',
 	                	});
 	                $("#container").append(video);
 	                var video_title = result.video[i].title;
-	                var title = $('<h1>',{'class' : 'col-md-4'}).text(video_title);
+	                var title = $('<h1>',{'class' : 'col-md-12'}).text(video_title);
 	                $("#container").append(title);
+	                $('#container h3').addClass('hidden');
 	            }
 	        },
 	        error: function(err) {
