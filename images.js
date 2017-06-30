@@ -57,17 +57,17 @@ function Drunk() {
 					method: 'GET',
 					dataType: 'json',
 					data: {
-						'client_id' : '63e09a26ab40332e112ecee256b44d00d17393ba22688913825458af2923a860',
+						'client_id' : 'eb63abf97e8fe63d45015fb63221b0206196e2667e3c81c5b89d8316b98b89d3',
 						'query' : correctAnswers[imageId],
-						'w' : 800,
-						'h' : 600
+						'w' : 300,
+						'h' : 200
 					},
 					url: 'https://api.unsplash.com/photos/random/?',
 					success: function(response) {
 						console.log(response);
 						var src = response.urls.custom;
 						var wrapper = $("<div>", {
-							'class': 'wrapper_size col-md-6'
+							'class': 'wrapper_size col-md-6 col-xs-6'
 						});
 						var img = $('<img>',{
 							'class': 'img_sizing col-md-12',
@@ -79,11 +79,12 @@ function Drunk() {
 							}).text(`<${response.user.first_name} ${response.user.last_name}/Unsplash>`);
 						wrapper.append(credit);
 						wrapper.append(img);
-						$('.row').append(wrapper);
+						$('#refresh').append(wrapper);
 						console.log('answer ajax called for imageId');
 						self.blurMore(blurCount);
-						wrapper.on('click', '.img_sizing', function(){
+						wrapper.on('click', 'img.img_sizing', function(){
 							self.checkPhoto(this);
+							console.log('picture selected');
 						});
 						$('.correctPicture').text(correctPicture);
 					},
@@ -96,15 +97,15 @@ function Drunk() {
 					method: 'GET',
 					dataType: 'json',
 					data: {
-						'client_id' : '63e09a26ab40332e112ecee256b44d00d17393ba22688913825458af2923a860',
-						'w' : 800,
-						'h' : 600
+						'client_id' : 'eb63abf97e8fe63d45015fb63221b0206196e2667e3c81c5b89d8316b98b89d3',
+						'w' : 300,
+						'h' : 200
 					},
 					url: 'https://api.unsplash.com/photos/random/',
 					success: function(response) {
 						var src = response.urls.custom;
 						var wrapper = $("<div>",{
-							'class' : 'wrapper_size col-md-6'
+							'class' : 'wrapper_size col-md-6 col-xs-6'
 						});
 						var img = $('<img>').attr({
 						'src': ''+src,
@@ -123,10 +124,11 @@ function Drunk() {
 						}
 						wrapper.append(credit);
 						wrapper.append(img);
-						$('.row').append(wrapper);
+						$('#refresh').append(wrapper);
 						self.blurMore(blurCount);
-						wrapper.on('click', '.img_sizing', function(){
+						wrapper.on('click', 'img.img_sizing', function(){
 							self.checkPhoto(this);
+							console.log('picture selected');
 						});
 					},
 					error: function(err) {
@@ -148,6 +150,7 @@ function Drunk() {
 			drunkScore++;
 			$("#refresh").empty();
 			if (drunkScore === 3) {
+				$('.status').addClass('hidden');
 				$('#container h3').addClass('hidden');
 				$('#googleMapContainer').removeClass('hidden');
 				$('#map').removeClass('hidden');
