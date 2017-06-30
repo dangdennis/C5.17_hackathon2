@@ -53,8 +53,8 @@ function Drunk() {
 					data: {
 						'client_id' : 'eb63abf97e8fe63d45015fb63221b0206196e2667e3c81c5b89d8316b98b89d3',
 						'query' : correctAnswers[imageId],
-						'w' : 400,
-						'h' : 300
+						'w' : 300,
+						'h' : 200
 					},
 					url: 'https://api.unsplash.com/photos/random/?',
 					success: function(response) {
@@ -73,11 +73,12 @@ function Drunk() {
 							}).text(`<${response.user.first_name} ${response.user.last_name}/Unsplash>`);
 						wrapper.append(credit);
 						wrapper.append(img);
-						$('.row').append(wrapper);
+						$('#refresh').append(wrapper);
 						console.log('answer ajax called for imageId');
 						self.blurMore(blurCount);
-						$('wrapper_size').on('click', '.img_sizing', function(){
+						wrapper.on('click', 'img.img_sizing', function(){
 							self.checkPhoto(this);
+							console.log('picture selected');
 						});
 						$('.correctPicture').text(correctPicture);
 					},
@@ -91,8 +92,8 @@ function Drunk() {
 					dataType: 'json',
 					data: {
 						'client_id' : 'eb63abf97e8fe63d45015fb63221b0206196e2667e3c81c5b89d8316b98b89d3',
-						'w' : 400,
-						'h' : 300
+						'w' : 300,
+						'h' : 200
 					},
 					url: 'https://api.unsplash.com/photos/random/',
 					success: function(response) {
@@ -117,10 +118,11 @@ function Drunk() {
 						}
 						wrapper.append(credit);
 						wrapper.append(img);
-						$('.row').append(wrapper);
+						$('#refresh').append(wrapper);
 						self.blurMore(blurCount);
-						$('wrapper_size').on('click', '.img_sizing', function(){
+						wrapper.on('click', 'img.img_sizing', function(){
 							self.checkPhoto(this);
+							console.log('picture selected');
 						});
 					},
 					error: function(err) {
