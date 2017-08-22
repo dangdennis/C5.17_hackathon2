@@ -10,8 +10,7 @@
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-R-iimUeUMWoUApy66q_MqFfQioQhz9A&libraries=places&callback=initMap">
     </script>
-    <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-R-iimUeUMWoUApy66q_MqFfQioQhz9A&libraries=places"></script>-->
-    <script type="text/javascript" src='brian_js.js'></script>
+    <script type="text/javascript" src='map.js'></script>
     <script src="images.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<link rel='stylesheet' type='text/css' href='style.css'/>
@@ -20,25 +19,24 @@
 <body>
 	<div id='drunk_modal' class='modal fade vertical-alignment-help' role='dialog'>
 		<div class='modal-dialog vertical-align-center'>
-			<div class='modal-content'>
+			<div class='modal-content custom'>
 				<div class='modal-header'>
-				<h1>Drink. Drank. Drunk.</h1>
+					<h1>Drink. Drank. Drunk.</h1>
 				</div>
 				<div class='modal-body col-md-12'>
-					<p>A website designed to determine whether you are possibly tipsy. Select a photo that matches the description given to you by the ever beautiful photos of unSplashed!</p>
+					<p>
+						Are you too tipsy? Select the photo that matches the description from the ever beautiful collection on Unsplash!
+					</p>
 				</div>
-				
-				<button type='button' class='btn btn-default' data-dismiss='modal' id='drunk_check' value='load_page'>Click Me!</button>
+				<button type='button' class='btn btn-default center-block' data-dismiss='modal' id='drunk_check' value='load_page'>Test Yourself</button>
 			</div>
 		</div>
 	</div>
 	<img src='animal.gif' id='loading_anim' class='col-offeset-5 hidden'>
 	<div id='container' class='hidden container'>
 		<h1 id='title'>How Drunk Are You?</h1>
+		<h3 class='status'>See the <span class='correctPicture'></span> ?</h3>
 		<div class='row col-xs-12' id='refresh'></div>
-		<div>
-			<h3>Select the <span class='correctPicture'></span></h3>
-		</div>
 	</div>
 	<div id="map" class='hidden'></div>
 	<div id="googleMapContainer" class="hidden">
@@ -47,20 +45,18 @@
 	                <small class="pull-right"></small>
 	            </h1>
 	        </div>
-	        <div class="bar-list col-md-9 col-xs-12">
+	        <div class="bar-list col-xs-12">
 	            <table class="bar-list table">
 	                <thead>
-	                <tr>
-	                    <th>Bar Name</th>
-	                    <th>Bar Address</th>
-	                </tr>
+		                <tr class='row'>
+		                    <th class="col-xs-6">Bar Name</th>
+		                    <th class="col-xs-6">Bar Address</th>
+		                </tr>
 	                </thead>
-	                <tbody>
-	                </tbody>
+	                <tbody></tbody>
 	            </table>
 	        </div>
 	        <button id="more">More results</button>
 	    </div>
-
 </body>
 </html>

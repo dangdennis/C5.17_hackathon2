@@ -4,12 +4,29 @@ body {
     font-family: 'Lato',sans-serif;
 }
 
+#drunk_check {
+    margin-bottom: 2%;
+    background-color: #fffdfd;
+    border-color: rgba(212, 191, 191, 0.5);
+}
+
+#drunk_check:hover {
+    border-color: rgba(0,0,0,.5);
+}
+
+.modal-content.custom {
+    opacity: 0.85;
+    box-shadow: 0 5px 15px rgba(117, 76, 76, 0.5);
+    background-color: #fffdfd;
+    margin-top: 30%;
+}
+
 h1, h3{
     text-align: center;
 }
 
 #title, h3, h3.correctPicture {
-    color: #dfcfb5;
+    color: #fffbf4;
 }
 
 
@@ -17,12 +34,16 @@ h1, h3{
 	display: none;
 }
 
-.img_sizing{
-	margin: auto 0;
+img.img_sizing{
+    box-sizing: border-box;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    border-radius: 7px;
+    margin: 1% auto;
 }
 
 .img_sizing:hover{
-    opacity: 0.25;
+    opacity: 0.90;
 }
 
 .img_description{
@@ -30,29 +51,15 @@ h1, h3{
     position: absolute;
     visibility: hidden;
     font-weight: bold;
-    background-color: #808080;
-    color: white;
+    background-color: rgba(255,255,255,.15);
+    color: #fffdfd;
     text-align: center;
+    font-size: 1.5em;
 }
 
 img:hover{
-    -webkit-box-shadow: -5px 2px 47px 13px rgba(242,248,250,1);
-    -moz-box-shadow: -5px 2px 47px 13px rgba(242,248,250,1);
-    box-shadow: -5px 2px 47px 13px rgba(242,248,250,1);
+    box-shadow: 0px 0px 8px 2px rgb(234, 222, 222);
 }
-
-/*.vertical-alignment-help{
-    display: table;
-    height: 100%;
-    width: 50%;
-    left: 100px;
-    text-align: center;
-}
-
-.vertical-align-center{
-    display: table-cell;
-    vertical-align: middle;
-}*/
 
 .wrapper_size{
     display: inline-block;
@@ -64,26 +71,37 @@ img:hover{
 }
 
 /* BreweryDB CSS */
-
-#map {
-    height: 400px;
-    width: 100%;
-    overflow:inherit;
-}
-
 .container .page-header{
     text-align: center;
 }
+
 .bar-list .col-md-9 .col-xs-12 {
     left: 160px
 }
+
+#googleMapContainer{
+    background-color: white;
+    opacity: 0.9;
+    width: 80%;
+    border-radius: 5px;
+    margin: 0 auto;  opacity: 0.80;
+}
+
+#map {
+    height: 400px;
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
 #more {
     width: 100%;
     margin: 5px 0 0 0;
 }
-#googleMapContainer{
-    background-color: white;
-    opacity: 0.80;
+
+.table {
+    width: 80%;
+    margin: 20px auto;
 }
 /*Youtube CSS*/
 iframe{

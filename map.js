@@ -53,9 +53,9 @@ function createMarkers(places) {
             title: place.name,
             position: place.geometry.location
         });
-            var row = $("<tr>");
-            var name = $("<td>").text(place.name);
-            var address = $("<td>").text(place.vicinity);
+            var row = $("<tr>").addClass('row');
+            var name = $("<td>").text(place.name).addClass('col-xs-6');
+            var address = $("<td>").text(place.vicinity).addClass('col-xs-6');
             $("tbody").append(row);
             $(row).append(name, address);
 
@@ -66,6 +66,3 @@ function createMarkers(places) {
 function getLocation(){
     navigator.geolocation.getCurrentPosition(initMap);
 }
-$(document).ready(function(){
-    getLocation();
-})
